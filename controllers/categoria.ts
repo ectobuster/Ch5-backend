@@ -15,13 +15,12 @@ export const getCategoria = async (req: Request, res: Response) => {
 
   const { id } = req.params;
 
-  const user = await categoria.findByPk(id);
+  const users = await categoria.findByPk(id);
 
-  if(user){
+  if(users){
     res.json({
       msg: 'getCategoria',
-      id,
-      user
+      users
     })
   }else{
     res.status(404).json({
@@ -59,4 +58,23 @@ export const deleteCategoria = (req: Request, res: Response) => {
       msg: 'delete Categoria',
       id
   })
+}
+
+export const getCategoriaPorId = async (req: Request, res: Response) => {
+
+  const { id } = req.params;
+
+  const categoriaEncontrada = await categoria.findByPk(id);
+
+  if(categoriaEncontrada){
+    res.json({
+      msg: 'getCategoriaPorId',
+      id,
+      categoria: categoriaEncontrada
+    })
+  }else{
+    res.status(404).json({
+      msg: 'La categoría no existe',
+    })
+  }
 }
